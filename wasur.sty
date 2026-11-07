@@ -1,0 +1,147 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{wasur}[2026/11/04 Personal notes style]
+
+\RequirePackage{iftex}
+\ifPDFTeX
+  \PackageError{wasur}{pdfLaTeX is not supported}
+    {Compile with XeLaTeX or LuaLaTeX.}
+\fi
+
+\newif\ifms@static   \ms@staticfalse
+\newif\ifms@relaxed  \ms@relaxedfalse
+\DeclareOption{static}{\ms@statictrue}
+\DeclareOption{relaxed}{\ms@relaxedtrue}
+\ProcessOptions\relax
+
+\RequirePackage{mathtools}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{geometry}
+\RequirePackage{fontspec}
+\RequirePackage{microtype}
+\RequirePackage{setspace}
+\RequirePackage{indentfirst}
+\RequirePackage{titlesec}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+
+\geometry{a4paper, margin=2cm}
+
+\ifms@static
+  \setmainfont{iAWriterQuattroS}[
+    Extension = .ttf,
+    UprightFont = *-Regular, BoldFont = *-Bold,
+    ItalicFont = *-Italic, BoldItalicFont = *-BoldItalic]
+  \setmonofont{iAWriterMonoS}[
+    Extension = .ttf,
+    UprightFont = *-Regular, BoldFont = *-Bold,
+    ItalicFont = *-Italic, BoldItalicFont = *-BoldItalic]
+\else
+  \setmainfont{iAWriterQuattroV}[
+    Extension = .ttf,
+    UprightFont = *, ItalicFont = *-Italic]
+  \setmonofont{iAWriterMonoV}[
+    Extension = .ttf,
+    UprightFont = *, ItalicFont = *-Italic]
+\fi
+
+\onehalfspacing
+\setlength{\parindent}{1cm}
+\setlength{\parskip}{0pt}
+\widowpenalty=10000
+\clubpenalty=10000
+\emergencystretch=1em
+\raggedbottom
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{0.6em}{}
+
+\ifms@relaxed
+  \titlespacing{\section}{0pt}{2ex plus .5ex minus .2ex}{1ex plus .2ex}
+  \titlespacing{\subsection}{0pt}{1.6ex plus .4ex minus .2ex}{.8ex plus .2ex}
+  \titlespacing{\subsubsection}{0pt}{1.4ex plus .4ex minus .2ex}{.6ex plus .2ex}
+  \setlist{itemsep=.25em, parsep=0pt, topsep=.5em, partopsep=0pt}
+  \setlength{\abovedisplayskip}{10pt plus 2pt minus 4pt}
+  \setlength{\belowdisplayskip}{10pt plus 2pt minus 4pt}
+  \setlength{\abovedisplayshortskip}{4pt plus 2pt minus 2pt}
+  \setlength{\belowdisplayshortskip}{6pt plus 2pt minus 2pt}
+\else
+  \titlespacing{\section}{0pt}{0pt}{0pt}
+  \titlespacing{\subsection}{0pt}{0pt}{0pt}
+  \titlespacing{\subsubsection}{0pt}{0pt}{0pt}
+  \setlist{itemsep=0pt, parsep=0pt, topsep=0pt, partopsep=0pt}
+  \setlength{\abovedisplayskip}{0pt}
+  \setlength{\belowdisplayskip}{0pt}
+  \setlength{\abovedisplayshortskip}{0pt}
+  \setlength{\belowdisplayshortskip}{0pt}
+\fi
+
+\renewcommand{\arraystretch}{1.2}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{proposition}[definition]{Proposition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\term}[1]{\textbf{#1}}
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
+
+% \quicknote[<date>]{<title>}: dated note heading, date defaults to \today
+\newcommand{\quicknote}[2][\today]{%
+  \par\addvspace{2.5ex plus .5ex minus .2ex}%
+  \noindent{\normalfont\large\bfseries #2}\hfill{\normalfont\small\itshape #1}%
+  \par\nobreak\vspace{.4ex}\hrule\nobreak\vspace{1ex}%
+  \@afterheading}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\SU}[1]{\mathfrak{SU}(#1)}
+\newcommand{\SO}[1]{\mathfrak{SO}(#1)}
+\newcommand{\su}[1]{\mathfrak{su}(#1)}
+\newcommand{\so}[1]{\mathfrak{so}(#1)}
+\newcommand{\SUr}[1]{\operatorname{SU}(#1)}
+\newcommand{\SOr}[1]{\operatorname{SO}(#1)}
+\newcommand{\GL}[1]{\operatorname{GL}(#1)}
+
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\Id}{\mathbb{I}}
+\newcommand{\herm}[1]{#1^{\dagger}}
+\newcommand{\transp}[1]{#1^{\mathsf{T}}}
+\newcommand{\conj}[1]{#1^{*}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\inner}{\langle}{\rangle}
+\newcommand{\comm}[2]{\left[#1,#2\right]}
+\newcommand{\acomm}[2]{\left\{#1,#2\right\}}
+
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle#1\right|}
+\newcommand{\braket}[2]{\left\langle#1\middle|#2\right\rangle}
+\newcommand{\ketbra}[2]{\left|#1\right\rangle\!\left\langle#2\right|}
+
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\dv}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+\newcommand{\pdv}[2]{\frac{\partial#1}{\partial#2}}
+
+\newcommand{\pauliX}{\begin{pmatrix}0&1\\1&0\end{pmatrix}}
+\newcommand{\pauliY}{\begin{pmatrix}0&-i\\i&0\end{pmatrix}}
+\newcommand{\pauliZ}{\begin{pmatrix}1&0\\0&-1\end{pmatrix}}
+
+\RequirePackage[colorlinks=true, linkcolor=blue!50!black,
+  citecolor=blue!50!black, urlcolor=blue!50!black]{hyperref}
+
+\endinput
