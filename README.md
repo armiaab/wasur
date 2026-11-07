@@ -38,6 +38,8 @@ A dated note with a \term{defined term} and $\ket{\psi} = \pauliX \ket{0}$.
 | Derivatives | `\dd`, `\dv{}{}`, `\pdv{}{}` |
 | Pauli matrices | `\pauliX`, `\pauliY`, `\pauliZ` |
 
-## Fonts
+## License
 
-The fonts are iA Writer, by Information Architects Inc., based on IBM Plex. They are unmodified and licensed under the SIL Open Font License, see [`fonts/LICENSE.md`](fonts/LICENSE.md).
+`wasur.sty` and this README are MIT, see [LICENSE](LICENSE).
+
+The fonts are iA Writer, by Information Architects Inc., based on IBM Plex. They are unmodified and keep their own license, the SIL Open Font License, see [`fonts/LICENSE.md`](fonts/LICENSE.md).
